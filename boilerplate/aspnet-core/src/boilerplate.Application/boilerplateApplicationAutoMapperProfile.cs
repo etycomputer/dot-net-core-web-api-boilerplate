@@ -11,5 +11,6 @@ public class boilerplateApplicationAutoMapperProfile : Profile
          * Alternatively, you can split your mapping configurations
          * into multiple profile classes for a better organization. */
          CreateMap<GlobalSetting, GlobalSettingDto>();
+         CreateMap<CreateUpdateGlobalSettingDto, GlobalSetting>();
     }
 }

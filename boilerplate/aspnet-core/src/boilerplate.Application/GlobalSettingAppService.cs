@@ -19,6 +19,27 @@ namespace boilerplate.GlobalSettings
             _globalsettingRepository = globalsettingRepository;
         }
 
+        public async Task CreateAsync(CreateUpdateGlobalSettingDto input)
+        {
+            await _globalsettingRepository.InsertAsync(
+                ObjectMapper.Map<CreateUpdateGlobalSettingDto, GlobalSetting>(input));
+            //throw new System.NotImplementedException();
+        }
+
+        public async Task<GlobalSettingDto> GetAsync(long id)
+        {
+            var gs = await _globalsettingRepository.GetAsync(id);
+            return ObjectMapper.Map<GlobalSetting, GlobalSettingDto>(gs);
+            //throw new System.NotImplementedException();
+        }
+
+        public async Task<GlobalSettingDto> GetByKeyNameAsync(string keyName)
+        {
+            var gs = await _globalsettingRepository.GetAsync(c=>c.key_name == keyName);
+            return ObjectMapper.Map<GlobalSetting, GlobalSettingDto>(gs);
+            //throw new System.NotImplementedException();
+        }
+
         public async Task<PagedResultDto<GlobalSettingDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
             //var query = await _globalsettingRepository.GetListAsync();
@@ -36,6 +57,15 @@ namespace boilerplate.GlobalSettings
                 (gs)
             );
 
+            //throw new System.NotImplementedException();
+        }
+
+        public async Task UpdaeteAsync(long id, CreateUpdateGlobalSettingDto input)
+        {
+            var gs = await _globalsettingRepository.GetAsync(id);
+            ObjectMapper.Map(input, gs);
+            // await _globalsettingRepository.UpdateAsync(
+            //     ObjectMapper.Map<CreateUpdateGlobalSettingDto, GlobalSetting>(input));
             //throw new System.NotImplementedException();
         }
     }

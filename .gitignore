@@ -1,1 +1,3 @@
 ﻿.idea
+boilerplate/aspnet-core/src/boilerplate.DbMigrator/appsettings.json
+boilerplate/aspnet-core/src/boilerplate.HttpApi.Host/appsettings.json

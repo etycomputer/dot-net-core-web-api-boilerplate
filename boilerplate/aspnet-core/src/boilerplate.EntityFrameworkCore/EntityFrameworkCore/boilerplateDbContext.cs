@@ -89,7 +89,8 @@ public class boilerplateDbContext :
                 .HasColumnType("varchar");
             g.Property<string>(c=>c.comments).HasMaxLength(500)
                 .HasColumnType("varchar");
-            g.Property<byte[]>(c=>c.timestamp).HasColumnType("timestamp");
+            g.Property<byte[]>(c=>c.timestamp).IsRowVersion()
+                .HasColumnType("timestamp");
             g.HasIndex(c=>new{c.group_name, c.key_name, c.timestamp});
         });
         //builder.Entity<YourEntity>(b =>

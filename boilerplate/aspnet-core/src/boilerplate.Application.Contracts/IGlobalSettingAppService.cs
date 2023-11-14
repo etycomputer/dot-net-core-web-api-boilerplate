@@ -5,8 +5,12 @@ namespace boilerplate.GlobalSettings
 {
     public interface IGlobalSettingAppService: IApplicationService
     {
-                Task<PagedResultDto<GlobalSettingDto>> GetListAsync(
-                    PagedAndSortedResultRequestDto input
-                );
+        Task<PagedResultDto<GlobalSettingDto>> GetListAsync(
+            PagedAndSortedResultRequestDto input
+        );
+        Task CreateAsync(CreateUpdateGlobalSettingDto input);
+        Task<GlobalSettingDto> GetAsync(long id);
+        Task<GlobalSettingDto> GetByKeyNameAsync(string keyName);
+        Task UpdaeteAsync(long id, CreateUpdateGlobalSettingDto input);
     }
 }
