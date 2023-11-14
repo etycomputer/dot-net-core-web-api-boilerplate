@@ -3,6 +3,7 @@ using boilerplate.GlobalSettings;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Uow;
 
 namespace boilerplate.Data
 {
@@ -16,6 +17,7 @@ namespace boilerplate.Data
             _globalSettingRep = globalSettingRep;
         }
 
+        [UnitOfWork]
         public async Task SeedAsync(DataSeedContext context)
         {
             //throw new System.NotImplementedException();
@@ -27,6 +29,7 @@ namespace boilerplate.Data
                     
                     comments = "Database created using Init script"
                 };
+                await _globalSettingRep.InsertAsync(gs);
             }
             return ;
         }
