@@ -9,9 +9,9 @@ namespace boilerplate.GlobalSettings
     {
         private readonly IGlobalSettingAppService _globalsettingRepository;
 
-        public GlobalSettings_Test(IGlobalSettingAppService globalsettingRepository)
+        public GlobalSettings_Test()
         {
-            _globalsettingRepository = globalsettingRepository;
+            _globalsettingRepository = GetRequiredService<IGlobalSettingAppService>();
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace boilerplate.GlobalSettings
                 new PagedAndSortedResultRequestDto()
             );
 
-            output.TotalCount.ShouldBe(3);
+            output.TotalCount.ShouldBe(1);
             output.Items.ShouldContain(
                 x => x.key_name.Contains("schema_version")
             );

@@ -35,8 +35,12 @@ namespace boilerplate.GlobalSettings
 
         public async Task<GlobalSettingDto> GetByKeyNameAsync(string keyName)
         {
-            var gs = await _globalsettingRepository.GetAsync(c=>c.key_name == keyName);
-            return ObjectMapper.Map<GlobalSetting, GlobalSettingDto>(gs);
+            var query = await _globalsettingRepository.WithDetailsAsync();
+            var parameter = query
+                .OrderByDescending(c => c.Id)
+                .Where(c => c.key_name == keyName)
+                .First();
+            return ObjectMapper.Map<GlobalSetting, GlobalSettingDto>(parameter);
             //throw new System.NotImplementedException();
         }
 
@@ -45,28 +49,26 @@ namespace boilerplate.GlobalSettings
             //var query = await _globalsettingRepository.GetListAsync();
             var query = await _globalsettingRepository.WithDetailsAsync();
 
-            query = query.Skip(input.SkipCount)
-                         .Take(input.MaxResultCount);
+            var xx = query.Skip(input.SkipCount)
+                         .Take(input.MaxResultCount)
+                         .OrderByDescending(c=>c.Id).ToList()
+                         .GroupBy(c=>c.key_name)
+                         .Select( g => g.First());
                          //.OrderBy(input.Sorting ?? nameof(GlobalSetting.group_name));
-            var gs = await AsyncExecuter.ToListAsync(query);
-            var count = await _globalsettingRepository.GetCountAsync();
+            // var gs = await AsyncExecuter.ToListAsync(xx.);
+            var count = xx.Count();
 
             return new PagedResultDto<GlobalSettingDto>(
                 count,
                 ObjectMapper.Map<List<GlobalSetting>, List<GlobalSettingDto>>
-                (gs)
+                (xx.ToList())
             );
-
-            //throw new System.NotImplementedException();
         }
 
-        public async Task UpdaeteAsync(long id, CreateUpdateGlobalSettingDto input)
-        {
-            var gs = await _globalsettingRepository.GetAsync(id);
-            ObjectMapper.Map(input, gs);
-            // await _globalsettingRepository.UpdateAsync(
-            //     ObjectMapper.Map<CreateUpdateGlobalSettingDto, GlobalSetting>(input));
-            //throw new System.NotImplementedException();
-        }
+        // public async Task UpdateAsync(long id, CreateUpdateGlobalSettingDto input)
+        // {
+        //     var gs = await _globalsettingRepository.GetAsync(id);
+        //     ObjectMapper.Map(input, gs);
+        // }
     }
 }

@@ -1823,13 +1823,9 @@ namespace boilerplate.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar");
 
-                    b.Property<byte[]>("timestamp")
-                        .IsRequired()
-                        .HasColumnType("timestamp");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("group_name", "key_name", "timestamp");
+                    b.HasIndex("group_name", "key_name", "Id");
 
                     b.ToTable("globalSetting", "pub");
                 });

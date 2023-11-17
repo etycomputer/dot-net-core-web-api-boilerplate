@@ -2,14 +2,14 @@ using Volo.Abp.Application.Dtos;
 
 namespace boilerplate.GlobalSettings
 {
-    public class GlobalSettingDto: AuditedEntityDto<long>
+    public class GlobalSettingDto: EntityDto<long>
     {
-        public string group_name { get; set; } 
-        public string key_name { get; set; } 
-        public string key_value { get; set; } 
-        public string comments { get; set; } 
+        public string group_name { get; set; }
+        public string key_name { get; set; }
+        public string key_value { get; set; }
+        public string comments { get; set; }
         // [Timestamp]
-        public byte[] timestamp  { get; set; }
+        // public byte[] timestamp  { get; set; }
     }
-    
+
 }

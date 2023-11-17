@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace boilerplate.Migrations
 {
     /// <inheritdoc />
-    public partial class addGlobalSettingdTable : Migration
+    public partial class globalSettingAndSeed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,7 +25,6 @@ namespace boilerplate.Migrations
                     keyname = table.Column<string>(name: "key_name", type: "varchar(100)", maxLength: 100, nullable: false),
                     keyvalue = table.Column<string>(name: "key_value", type: "varchar(100)", maxLength: 100, nullable: false),
                     comments = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
-                    timestamp = table.Column<byte[]>(type: "timestamp", nullable: false),
                     ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -42,10 +41,10 @@ namespace boilerplate.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_globalSetting_group_name_key_name_timestamp",
+                name: "IX_globalSetting_group_name_key_name_Id",
                 schema: "pub",
                 table: "globalSetting",
-                columns: new[] { "group_name", "key_name", "timestamp" });
+                columns: new[] { "group_name", "key_name", "Id" });
         }
 
         /// <inheritdoc />

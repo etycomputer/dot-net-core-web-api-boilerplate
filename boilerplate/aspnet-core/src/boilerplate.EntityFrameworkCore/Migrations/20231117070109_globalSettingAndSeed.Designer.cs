@@ -13,8 +13,8 @@ using boilerplate.EntityFrameworkCore;
 namespace boilerplate.Migrations
 {
     [DbContext(typeof(boilerplateDbContext))]
-    [Migration("20231111185237_addGlobalSettingdTable")]
-    partial class addGlobalSettingdTable
+    [Migration("20231117070109_globalSettingAndSeed")]
+    partial class globalSettingAndSeed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1826,13 +1826,9 @@ namespace boilerplate.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar");
 
-                    b.Property<byte[]>("timestamp")
-                        .IsRequired()
-                        .HasColumnType("timestamp");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("group_name", "key_name", "timestamp");
+                    b.HasIndex("group_name", "key_name", "Id");
 
                     b.ToTable("globalSetting", "pub");
                 });
